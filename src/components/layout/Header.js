@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaPizzaSlice, FaGlobe } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaPizzaSlice, FaGlobe, FaExternalLinkAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { AddTask } from '../AddTask';
 import { TimezoneConverter } from '../TimezoneConverter';
@@ -39,6 +40,15 @@ export const Header = ({ darkMode, setDarkMode }) => {
               >
                 <FaGlobe />
               </button>
+              <Link
+                to="/timezone"
+                data-testid="timezone-converter-link"
+                aria-label="Open timezone converter page"
+                className="settings__timezone-link"
+                title="Open as full page"
+              >
+                <FaExternalLinkAlt />
+              </Link>
             </li>
             <li className="settings__darkmode">
               <button

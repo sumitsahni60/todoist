@@ -47,6 +47,7 @@ export const AddTask = ({
         })
         .then(() => {
           setTask('');
+          setTaskDate('');
           setProject('');
           setShowMain('');
           setShowProjectOverlay(false);
@@ -116,6 +117,14 @@ export const AddTask = ({
             showTaskDate={showTaskDate}
             setShowTaskDate={setShowTaskDate}
           />
+          {taskDate && (
+            <span
+              className="add-task__date-selected"
+              data-testid="task-date-selected"
+            >
+              {taskDate}
+            </span>
+          )}
           <input
             className="add-task__content"
             aria-label="Enter your task"

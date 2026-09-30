@@ -2,6 +2,7 @@ import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { Tasks } from '../components/Tasks';
 import { useSelectedProjectValue } from '../context';
+import { useTasks } from '../hooks';
 
 jest.mock('../firebase', () => ({
   firebase: {
@@ -54,20 +55,30 @@ jest.mock('../context', () => ({
   })),
 }));
 
+const mockTaskWithDate = {
+  id: 'mx2taaXpF38vYqMGbVtY',
+  archived: false,
+  date: '21/07/2019',
+  projectId: '1',
+  task:
+    'Would I rather be feared or loved? Easy. Both. I want people to be afraid of how much they love me.',
+  userId: 'jlIFXIwyAL3tzHMtzRbw',
+};
+
+const mockTaskWithoutDate = {
+  id: 'abc123',
+  archived: false,
+  date: '',
+  projectId: '1',
+  task: 'A task with no due date.',
+  userId: 'jlIFXIwyAL3tzHMtzRbw',
+};
+
+// Default mock returns a task that has a date; individual tests override as needed.
 jest.mock('../hooks', () => ({
-  useTasks: () => ({
-    tasks: [
-      {
-        id: 'mx2taaXpF38vYqMGbVtY',
-        archived: false,
-        date: '21/07/2019',
-        projectId: '1',
-        task:
-          'Would I rather be feared or loved? Easy. Both. I want people to be afraid of how much they love me.',
-        userId: 'jlIFXIwyAL3tzHMtzRbw',
-      },
-    ],
-  }),
+  useTasks: jest.fn(() => ({
+    tasks: [mockTaskWithDate],
+  })),
 }));
 
 beforeEach(cleanup);
@@ -102,13 +113,17 @@ describe('<Tasks />', () => {
 
   it('renders a task without a date span when date is empty', () => {
     useSelectedProjectValue.mockImplementation(() => ({
-      setSelectedProject: jest.fn(() => 'INBOX'),
-      selectedProject: 'INBOX',
+      setSelectedProject: jest.fn(() => '1'),
+      selectedProject: '1',
     }));
+    useTasks.mockReturnValueOnce({ tasks: [mockTaskWithoutDate] });
 
     const { queryByTestId } = render(<Tasks />);
-    // The mock task has a date, so task-item-date is present; verify task text is shown
     expect(queryByTestId('task-item-task')).toBeTruthy();
+    expect(queryByTestId('task-item-task').textContent).toBe(
+      'A task with no due date.'
+    );
+    expect(queryByTestId('task-item-date')).toBeFalsy();
   });
 
   it('renders a task with a project title', () => {

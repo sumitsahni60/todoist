@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { FaPizzaSlice } from 'react-icons/fa';
+import { FaPizzaSlice, FaGlobe } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { AddTask } from '../AddTask';
+import { TimezoneConverter } from '../TimezoneConverter';
 
 export const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
+  const [showTimezoneConverter, setShowTimezoneConverter] = useState(false);
 
   return (
     <header className="header" data-testid="header">
@@ -28,6 +30,16 @@ export const Header = ({ darkMode, setDarkMode }) => {
                 +
               </button>
             </li>
+            <li className="settings__timezone">
+              <button
+                data-testid="timezone-converter-action"
+                aria-label="Open timezone converter"
+                type="button"
+                onClick={() => setShowTimezoneConverter(true)}
+              >
+                <FaGlobe />
+              </button>
+            </li>
             <li className="settings__darkmode">
               <button
                 data-testid="dark-mode-action"
@@ -47,6 +59,11 @@ export const Header = ({ darkMode, setDarkMode }) => {
         shouldShowMain={shouldShowMain}
         showQuickAddTask={showQuickAddTask}
         setShowQuickAddTask={setShowQuickAddTask}
+      />
+
+      <TimezoneConverter
+        show={showTimezoneConverter}
+        onClose={() => setShowTimezoneConverter(false)}
       />
     </header>
   );

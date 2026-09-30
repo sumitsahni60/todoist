@@ -718,3 +718,219 @@ header {
     @include cancel();
   }
 }
+
+/* Timezone Converter
+  ============================================ */
+.timezone-converter {
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 24px;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 24px;
+  width: 420px;
+  max-width: 95vw;
+  padding: 24px 28px 28px;
+  position: relative;
+
+  @include mq('500px') {
+    padding: 18px 16px 22px;
+  }
+
+  &__overlay {
+    background: rgba(102, 102, 102, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  &__header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #202020;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 8px;
+
+    svg {
+      color: $generic-bg;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__close {
+    @include transparent-button();
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+  }
+
+  &__field {
+    margin-bottom: 16px;
+  }
+
+  &__label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    gap: 6px;
+  }
+
+  &__input,
+  &__select {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+    color: #202020;
+    background-color: #fff;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+
+    &:focus {
+      outline: none;
+      border-color: $generic-bg;
+      -webkit-box-shadow: 0 0 0 2px rgba(219, 76, 63, 0.2);
+              box-shadow: 0 0 0 2px rgba(219, 76, 63, 0.2);
+    }
+  }
+
+  &__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+    cursor: pointer;
+  }
+
+  &__swap-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  &__swap {
+    @include transparent-button();
+    color: $generic-bg;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px 14px;
+    border: 1px solid $generic-bg;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: $generic-bg;
+      color: #fff;
+    }
+  }
+
+  &__result {
+    background-color: #f9f9f9;
+    border: $generic-border;
+    border-radius: 3px;
+    padding: 12px 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 4px;
+  }
+
+  &__result-label {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+  }
+
+  &__result-value {
+    font-size: 15px;
+    font-weight: bold;
+    color: #202020;
+  }
+
+  &__error {
+    color: $generic-bg;
+    font-size: 13px;
+    margin: 0;
+    padding: 10px 14px;
+    background-color: rgba(219, 76, 63, 0.08);
+    border-radius: 3px;
+    border: 1px solid rgba(219, 76, 63, 0.3);
+  }
+}
+
+/* Timezone Converter – header button
+  ============================================ */
+.settings__timezone {
+  button {
+    @include transparent-button();
+    color: white;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

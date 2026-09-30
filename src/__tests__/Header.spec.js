@@ -38,5 +38,49 @@ describe('<Header />', () => {
       fireEvent.click(queryByTestId('quick-add-task-action'));
       expect(queryByTestId('add-task-main')).toBeTruthy();
     });
+
+    it('renders the timezone converter button in the header', () => {
+      const { queryByTestId } = render(
+        <Header darkMode={false} setDarkMode={jest.fn()} />
+      );
+      expect(queryByTestId('timezone-converter-action')).toBeTruthy();
+    });
+
+    it('opens the timezone converter dialog when the globe button is clicked', () => {
+      const { queryByTestId } = render(
+        <Header darkMode={false} setDarkMode={jest.fn()} />
+      );
+
+      // Dialog should not be visible before clicking
+      expect(queryByTestId('timezone-converter')).toBeFalsy();
+
+      fireEvent.click(queryByTestId('timezone-converter-action'));
+
+      expect(queryByTestId('timezone-converter')).toBeTruthy();
+    });
+
+    it('closes the timezone converter dialog when the close button is clicked', () => {
+      const { queryByTestId } = render(
+        <Header darkMode={false} setDarkMode={jest.fn()} />
+      );
+
+      fireEvent.click(queryByTestId('timezone-converter-action'));
+      expect(queryByTestId('timezone-converter')).toBeTruthy();
+
+      fireEvent.click(queryByTestId('timezone-converter-close'));
+      expect(queryByTestId('timezone-converter')).toBeFalsy();
+    });
+
+    it('closes the timezone converter dialog when the overlay backdrop is clicked', () => {
+      const { queryByTestId } = render(
+        <Header darkMode={false} setDarkMode={jest.fn()} />
+      );
+
+      fireEvent.click(queryByTestId('timezone-converter-action'));
+      expect(queryByTestId('timezone-converter')).toBeTruthy();
+
+      fireEvent.click(queryByTestId('timezone-converter-overlay'));
+      expect(queryByTestId('timezone-converter')).toBeFalsy();
+    });
   });
 });

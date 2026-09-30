@@ -689,6 +689,47 @@ header {
       }
     }
   }
+
+  &__custom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &__custom-icon {
+    margin-right: 8px;
+    color: grey;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
+  &__custom-input {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 3px 5px;
+    min-width: 0;
+  }
+
+  &__custom-submit {
+    @include btn('30px');
+    margin-left: 6px;
+    margin-top: 0;
+    padding: 4px 6px;
+    font-size: 11px;
+  }
 }
 
 /* Project Overlay

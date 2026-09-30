@@ -917,6 +917,68 @@ header {
   }
 }
 
+/* Timezone Page – standalone /timezone route
+  ============================================ */
+.timezone-page {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 0 0 40px;
+
+  &__header {
+    background-color: $generic-bg;
+    padding: 14px 24px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 16px;
+  }
+
+  &__back {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 6px;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  &__card {
+    max-width: 480px;
+    margin: 40px auto 0;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 16px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 16px;
+    padding: 28px 32px 32px;
+
+    @include mq('500px') {
+      margin: 20px 12px 0;
+      padding: 20px 16px 24px;
+    }
+  }
+}
+
 /* Timezone Converter – header button
   ============================================ */
 .settings__timezone {

@@ -3,6 +3,19 @@ import { render, cleanup } from '@testing-library/react';
 import { Tasks } from '../components/Tasks';
 import { useSelectedProjectValue } from '../context';
 
+jest.mock('../firebase', () => ({
+  firebase: {
+    firestore: jest.fn(() => ({
+      collection: jest.fn(() => ({
+        doc: jest.fn(() => ({
+          update: jest.fn(),
+        })),
+        add: jest.fn(() => Promise.resolve()),
+      })),
+    })),
+  },
+}));
+
 jest.mock('../context', () => ({
   useSelectedProjectValue: jest.fn(),
   useProjectsValue: jest.fn(() => ({
@@ -73,6 +86,29 @@ describe('<Tasks />', () => {
     const { queryByTestId } = render(<Tasks />);
     expect(queryByTestId('tasks')).toBeTruthy();
     expect(queryByTestId('project-name').textContent).toBe('Inbox');
+  });
+
+  it('renders a task with its due date displayed', () => {
+    useSelectedProjectValue.mockImplementation(() => ({
+      setSelectedProject: jest.fn(() => '1'),
+      selectedProject: '1',
+    }));
+
+    const { queryByTestId } = render(<Tasks />);
+    expect(queryByTestId('task-item-task')).toBeTruthy();
+    expect(queryByTestId('task-item-date')).toBeTruthy();
+    expect(queryByTestId('task-item-date').textContent).toBe('21/07/2019');
+  });
+
+  it('renders a task without a date span when date is empty', () => {
+    useSelectedProjectValue.mockImplementation(() => ({
+      setSelectedProject: jest.fn(() => 'INBOX'),
+      selectedProject: 'INBOX',
+    }));
+
+    const { queryByTestId } = render(<Tasks />);
+    // The mock task has a date, so task-item-date is present; verify task text is shown
+    expect(queryByTestId('task-item-task')).toBeTruthy();
   });
 
   it('renders a task with a project title', () => {

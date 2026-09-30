@@ -394,5 +394,70 @@ describe('<AddTask />', () => {
 
       fireEvent.click(queryByTestId('add-task'));
     });
+
+    it('shows the task-date-selected badge after a preset date is chosen', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: '1',
+      }));
+
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+      fireEvent.click(queryByTestId('show-main-action'));
+
+      // No badge before a date is selected
+      expect(queryByTestId('task-date-selected')).toBeFalsy();
+
+      // Open overlay and pick Today
+      fireEvent.click(queryByTestId('show-task-date-overlay'));
+      fireEvent.click(queryByTestId('task-date-today'));
+
+      // Badge should now be visible with a date string
+      expect(queryByTestId('task-date-selected')).toBeTruthy();
+      expect(queryByTestId('task-date-selected').textContent).toMatch(
+        /\d{2}\/\d{2}\/\d{4}/
+      );
+    });
+
+    it('shows the task-date-selected badge after a custom date is entered', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: '1',
+      }));
+
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+      fireEvent.click(queryByTestId('show-main-action'));
+
+      // No badge before a date is selected
+      expect(queryByTestId('task-date-selected')).toBeFalsy();
+
+      // Open overlay, type a custom date, and confirm
+      fireEvent.click(queryByTestId('show-task-date-overlay'));
+      expect(queryByTestId('task-date-overlay')).toBeTruthy();
+
+      fireEvent.change(queryByTestId('task-date-custom-input'), {
+        target: { value: '2025-03-15' },
+      });
+      fireEvent.click(queryByTestId('task-date-custom-submit'));
+
+      // Overlay closes and badge shows the formatted date
+      expect(queryByTestId('task-date-overlay')).toBeFalsy();
+      expect(queryByTestId('task-date-selected')).toBeTruthy();
+      expect(queryByTestId('task-date-selected').textContent).toBe('15/03/2025');
+    });
+
+    it('does not show the task-date-selected badge when custom OK is clicked with no date', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: '1',
+      }));
+
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+      fireEvent.click(queryByTestId('show-main-action'));
+
+      fireEvent.click(queryByTestId('show-task-date-overlay'));
+      // Click OK without entering a date
+      fireEvent.click(queryByTestId('task-date-custom-submit'));
+
+      // Overlay stays open, badge absent
+      expect(queryByTestId('task-date-overlay')).toBeTruthy();
+      expect(queryByTestId('task-date-selected')).toBeFalsy();
+    });
   });
 });
